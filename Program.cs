@@ -10,23 +10,25 @@ namespace pr2
             //DateTime date1 = new DateTime();
             //Console.WriteLine(DateTime.Now.Year);
             //f.SetName();
-            
+
             f.SetMonth();
             f.SetYear();
-            Console.WriteLine(f.GetWorkExperience());
+            f.SetWorkPlace();
+            Console.WriteLine(f.GetTotalMoney());
 
         }
     }
     class Company
     {
-        protected string Name, Position, Salary;
+        protected string Name, Position;
+        protected int Salary;
         public Company()
         {
             Name = "empty";
             Position = "empty";
-            Salary = "empty";
+            Salary = 0;
         }
-        public Company(string a, string b, string c)
+        public Company(string a, string b, int c)
         {
             Name = a;
             Position = b;
@@ -45,7 +47,7 @@ namespace pr2
         public void SetSalary()
         {
             Console.Write("\nSetSalary\n");
-            Salary = Console.ReadLine().ToString();
+            Salary = int.Parse(Console.ReadLine());
         }
         public string GetName()
         {
@@ -57,7 +59,7 @@ namespace pr2
             Console.Write("\nGetPosition\n");
             return Position;
         }
-        public string GetSalary()
+        public int GetSalary()
         {
             Console.Write("\nGetSalary\n");
             return Salary;
@@ -131,6 +133,10 @@ namespace pr2
         public int GetWorkExperience()
         {
             return ((DateTime.Now.Year - Year-1)*12 - Month + 1 + DateTime.Now.Month);//включно з місяцем прийнятя на роботу і теперішнім
+        }
+        public int GetTotalMoney()
+        {
+            return GetWorkExperience()* WorkPlace.GetSalary();
         }
 
     }
