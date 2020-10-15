@@ -10,7 +10,10 @@ namespace pr2
             //DateTime date1 = new DateTime();
             //Console.WriteLine(DateTime.Now.Year);
             //f.SetName();
-            //Console.WriteLine(f.GetName());
+            
+            f.SetMonth();
+            f.SetYear();
+            Console.WriteLine(f.GetWorkExperience());
 
         }
     }
@@ -127,7 +130,7 @@ namespace pr2
 
         public int GetWorkExperience()
         {
-            return ((DateTime.Now.Year - GetYear())*12 - GetMonth() + 1 + DateTime.Now.Month);
+            return ((DateTime.Now.Year - Year-1)*12 - Month + 1 + DateTime.Now.Month);//включно з місяцем прийнятя на роботу і теперішнім
         }
 
     }
