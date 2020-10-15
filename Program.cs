@@ -31,18 +31,33 @@ namespace pr2
         }
         public void SetName()
         {
-            Console.Write("SetName\n");
+            Console.Write("\nSetName\n");
             Name = Console.ReadLine().ToString();
         }
-        public void SetYear()
+        public void SetPosition()
         {
-            Console.Write("SetPosition\n");
+            Console.Write("\nSetPosition\n");
             Position = Console.ReadLine().ToString();
         }
-        public void SetMonth()
+        public void SetSalary()
         {
-            Console.Write("SetSalary\n");
+            Console.Write("\nSetSalary\n");
             Salary = Console.ReadLine().ToString();
+        }
+        public string GetName()
+        {
+            Console.Write("\nGetName\n");
+            return Name;
+        }
+        public string GetPosotion()
+        {
+            Console.Write("\nGetPosition\n");
+            return Position;
+        }
+        public string GetSalary()
+        {
+            Console.Write("\nGetSalary\n");
+            return Salary;
         }
 
     }
@@ -67,37 +82,52 @@ namespace pr2
         }
         public void SetName()
         {
-            Console.Write("SetName\n");
+            Console.Write("\nSetName\n");
             Name = Console.ReadLine();
         }
         public void SetYear()
         {
-            Console.Write("SetYear\n");
+            Console.Write("\nSetYear\n");
             Year = int.Parse(Console.ReadLine());
         }
         public void SetMonth()
         {
-            Console.Write("SetMonth\n");
+            Console.Write("\nSetMonth\n");
             Month = int.Parse(Console.ReadLine());
         }
         public int GetMonth()
         {
+            Console.Write("\nGetMonth\n");
             return Month;
         }
         public int GetYear()
         {
+            Console.Write("\nGetYear\n");
             return Year;
         }
         public string GetName()
         {
+            Console.Write("\nGetName\n");
             return Name;
         }
         public void SetWorkPlace()
         {
-            Console.Write("SetWorkPlace\n");
+            Console.Write("\nSetWorkPlace\n");
             WorkPlace.SetName();
-            WorkPlace.SetYear();
-            WorkPlace.SetMonth();
+            WorkPlace.SetPosition();
+            WorkPlace.SetSalary();
+        }
+        public void GetWorkPlace()
+        {
+            Console.Write("\nGetWorkPlace\n");
+            WorkPlace.GetName();
+            WorkPlace.SetPosition();
+            WorkPlace.GetSalary();
+        }
+
+        public int GetWorkExperience()
+        {
+            return ((DateTime.Now.Year - GetYear())*12 - GetMonth() + 1 + DateTime.Now.Month);
         }
 
     }
