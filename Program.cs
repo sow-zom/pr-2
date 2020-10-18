@@ -7,15 +7,67 @@ namespace pr2
         static void Main()
         {
             Worker f = new Worker();
+            Company g = new Company();
             //DateTime date1 = new DateTime();
             //Console.WriteLine(DateTime.Now.Year);
             //f.SetName();
 
-            f.SetMonth();
-            f.SetYear();
-            f.SetWorkPlace();
-            Console.WriteLine(f.GetTotalMoney());
+            //f.SetMonth();
+            //f.SetYear();
+            //g.SetSalary();
+            //f.SetWorkPlace(g);
+            //Console.WriteLine(f.GetTotalMoney());
 
+            PrintWorker(ReadWorkersArray());
+
+        }
+        static Worker[] ReadWorkersArray()
+        {
+            Console.Write("\n(ReadWorkersArray):\nset Worker number>> ");
+            int razm = Convert.ToInt32(Console.ReadLine());
+            Worker[] array = new Worker[razm];
+            
+
+            for (int i = 0; i < razm; i++)
+            {
+                array[i] = new Worker();
+                Company array2 = new Company();
+                Console.Write("\n(ReadWorkersArray):\n" + i+1);
+                array[i] = new Worker();
+                array[i].SetName();
+
+                array[i].SetYear();
+
+                array[i].SetMonth();
+                array2.SetName();
+                array2.SetPosition();
+                array2.SetSalary();
+                //array[i].SetWorkPlace(array2);
+                Console.Write(array2.GetName());
+               array[i].GetWorkPlace(array2);
+
+
+            }
+
+            return array;
+        }
+        static void PrintWorker(Worker o)
+        {
+            Console.Write(o.GetName());
+            Console.Write(o.GetYear());
+            Console.Write(o.GetMonth());
+            //o.GetWorkPlace();
+            
+            
+        }
+
+        static void PrintWorker(Worker[] o)
+        {
+            for (int i = 0; i < o.Length; i++)
+            {
+                Console.Write("Worker " + (i + 1) + ":\n");
+                PrintWorker(o[i]);
+            }
         }
     }
     class Company
@@ -36,7 +88,7 @@ namespace pr2
         }
         public void SetName()
         {
-            Console.Write("\nSetName\n");
+            Console.Write("\nSetCompanyName\n");
             Name = Console.ReadLine().ToString();
         }
         public void SetPosition()
@@ -51,10 +103,10 @@ namespace pr2
         }
         public string GetName()
         {
-            Console.Write("\nGetName\n");
+            Console.Write("\nGetCompanyName\n");
             return Name;
         }
-        public string GetPosotion()
+        public string GetPosition()
         {
             Console.Write("\nGetPosition\n");
             return Position;
@@ -71,12 +123,13 @@ namespace pr2
     {
         protected string Name;
         protected int Year, Month;
-        Company WorkPlace = new Company();
+        protected Company WorkPlace;
         public Worker()
         {
             Name = "empty";
             Year = 0;
             Month = 0;
+            WorkPlace = new Company();
         }
         public Worker(string a, int b, int c, Company d)
         {
@@ -84,6 +137,7 @@ namespace pr2
             Year = b;
             Month = c;
             WorkPlace = d;
+            
         }
         public void SetName()
         {
@@ -100,6 +154,10 @@ namespace pr2
             Console.Write("\nSetMonth\n");
             Month = int.Parse(Console.ReadLine());
         }
+        public void SetWorkPlace(Company WP) 
+        {
+            WorkPlace = WP;
+        }
         public int GetMonth()
         {
             Console.Write("\nGetMonth\n");
@@ -115,20 +173,39 @@ namespace pr2
             Console.Write("\nGetName\n");
             return Name;
         }
-        public void SetWorkPlace()
-        {
-            Console.Write("\nSetWorkPlace\n");
-            WorkPlace.SetName();
-            WorkPlace.SetPosition();
-            WorkPlace.SetSalary();
-        }
-        public void GetWorkPlace()
+        //public Company[] SetWorkPlace()
+        //{
+        //Company[] array = new Company[3];
+        //Console.Write("\nSetWorkPlace\n");
+        //array[0].SetName();
+        //array[1].SetPosition();
+        //array[2].SetSalary();
+        //return array;
+        //}
+        public void GetWorkPlace(Company WP)
         {
             Console.Write("\nGetWorkPlace\n");
-            WorkPlace.GetName();
-            WorkPlace.SetPosition();
-            WorkPlace.GetSalary();
+            Console.Write( WP.GetName());
+            Console.Write (WP.GetPosition());
+            Console.Write(WP.GetSalary());
         }
+        //public void GetWorkPlace()
+        //{
+
+        //Console.Write(o[0].GetName());
+        //Console.Write(o[1].GetPosition());
+        //Console.Write(o[2].GetSalary());
+        ////  o.;
+        //}
+
+        ////static void PrintWorker(Worker[] o)
+        ////{
+        ////for (int i = 0; i < o.Length; i++)
+        ////{
+        ////Console.Write("Worker " + (i + 1) + ":\n");
+        ////PrintWorker(o[i]);
+        ////}
+        ////}
 
         public int GetWorkExperience()
         {
