@@ -9,7 +9,7 @@ namespace pr2
             int x = -1;
             Worker f = new Worker();
             Company g = new Company();
-            float v, m;
+            double v, m;
             Worker[] succ = ReadWorkersArray();
             while (true)
             {
@@ -25,8 +25,9 @@ namespace pr2
                     case 4: Console.Clear(); Console.WriteLine("PrintWorker() = "); PrintWorker(succ[0]); break;
                     case 5: Console.Clear(); Console.WriteLine("PrintWorkers() = "); PrintWorker(succ); break;
                     case 6: Console.Clear(); Console.WriteLine("GetWorkerInfo(succ, out v, out m)  -- "); GetWorkerInfo(succ, out v, out m); Console.Write(" MaxSalary = " + v + " MinSalary = " + m + ".\n"); break;
-                    case 7: Console.Clear(); Console.WriteLine("succ = SortWorkerBySalary(succ) -- "); succ = SortWorkerBySalary(succ); break;
-                    case 8: Console.Clear(); Console.WriteLine("succ = SortWorkerByWorkExperiense(succ) -- "); succ = SortWorkerByWorkExperiense(succ); break;
+                    case 7: Console.Clear(); Console.WriteLine("succ = SortWorkerBySalary(succ)"); succ = SortWorkerBySalary(succ); break;
+                    case 8: Console.Clear(); Console.WriteLine("succ = SortWorkerByWorkExperiense(succ)"); succ = SortWorkerByWorkExperiense(succ); break;
+                    case 9: Console.Clear(); Console.WriteLine(" Array.Sort(succ)"); Array.Sort(succ); ; break;
                     case 0: Console.Clear(); Console.WriteLine("Exit completed successfully"); return 0;
                     default: Console.Clear(); Console.WriteLine("Erorr 404, Pls try again"); return 0;
                 }
@@ -45,6 +46,7 @@ namespace pr2
             Console.Write("\n--------------------[6].GetWorkersInfo()----------------------");
             Console.Write("\n--------------------[7].SortWorkerBySalary()------------------");
             Console.Write("\n--------------------[8].SortWorkerByWorkExperience()----------");
+            Console.Write("\n--------------------[9].Array.Sort(succ)----------------------");
             Console.Write("\n\n--------------------[0].Exit----------------------------------");
         }
         static Worker[] SortWorkerByWorkExperiense(Worker[] o)
@@ -87,7 +89,7 @@ namespace pr2
             }
             return o;        
         }
-            static void GetWorkerInfo(Worker[] o, out float v, out float m)
+            static void GetWorkerInfo(Worker[] o, out double v, out double m)
         {
             v = o[0].GetSalary(); m = o[0].GetSalary();
             for (int i = 1; i < o.Length; i++)
@@ -99,8 +101,11 @@ namespace pr2
         }
             static Worker[] ReadWorkersArray()
         {
+            double bts;
             Console.Write("\n(ReadWorkersArray):\nset Worker number>> ");
-            int razm = Convert.ToInt32(Console.ReadLine());
+            while (!Double.TryParse(Console.ReadLine(), out bts))
+                { Console.WriteLine("Invalid Erorr, Rls try again >>"); }
+            int razm = Convert.ToInt32(bts);
             Worker[] array = new Worker[razm];
             
 
@@ -142,7 +147,7 @@ namespace pr2
     class Company
     {
         protected string Name, Position;
-        protected int Salary;
+        protected double Salary;
         public Company()
         {
             Name = "empty";
@@ -167,8 +172,11 @@ namespace pr2
         }
         public void SetSalary()
         {
+            double bts;
             Console.Write("\nSetSalary\n");
-            Salary = int.Parse(Console.ReadLine());
+            while (!Double.TryParse(Console.ReadLine(), out bts))
+            { Console.WriteLine("Invalid Erorr, Pls try again >>"); }
+            Salary = bts;
         }
         public string GetName()
         {
@@ -180,7 +188,7 @@ namespace pr2
             Console.Write("\nGetPosition\n");
             return Position;
         }
-        public int GetSalary()
+        public double GetSalary()
         {
             //Console.Write("\nGetSalary\n");
             return Salary;
@@ -188,7 +196,7 @@ namespace pr2
 
     }
 
-    class Worker
+    class Worker : IComparable
     {
         protected string Name;
         protected int Year, Month;
@@ -208,6 +216,17 @@ namespace pr2
             WorkPlace = d;
             
         }
+        public int CompareTo(object obj)
+        {
+            if (obj is Worker)
+            {
+                return this.Name.CompareTo((obj as Worker).Name);
+            }
+            throw new ArgumentException("Object is not a User");
+        }
+
+        public int CompareTo(Worker other) { return this.Name.CompareTo(other.Name); }
+
         public void SetName()
         {
             Console.Write("\nSetName\n");
@@ -216,12 +235,19 @@ namespace pr2
         public void SetYear()
         {
             Console.Write("\nSetYear\n");
-            Year = int.Parse(Console.ReadLine());
+            int bts;
+            while (!int.TryParse(Console.ReadLine(), out bts))
+            { Console.WriteLine("Invalid Erorr, Rls try again >>"); }
+            Console.Write("\nSetSalary\n");
+            Year = bts;
         }
         public void SetMonth()
         {
             Console.Write("\nSetMonth\n");
-            Month = int.Parse(Console.ReadLine());
+            int bts;
+            while (!int.TryParse(Console.ReadLine(), out bts))
+            { Console.WriteLine("Invalid Erorr, Rls try again >>"); }
+            Month = bts;
         }
         public void SetWorkPlace(Company WP) 
         {
@@ -249,7 +275,7 @@ namespace pr2
             Console.Write(WorkPlace.GetPosition());
             Console.Write(WorkPlace.GetSalary());
         }
-        public int GetSalary()
+        public double GetSalary()
         {
             return WorkPlace.GetSalary();
         }
@@ -258,7 +284,7 @@ namespace pr2
         {
             return ((DateTime.Now.Year - Year-1)*12 - Month + 1 + DateTime.Now.Month);//включно з місяцем прийнятя на роботу і теперішнім
         }
-        public int GetTotalMoney()
+        public double GetTotalMoney()
         {
             return GetWorkExperience()* WorkPlace.GetSalary();
         }
