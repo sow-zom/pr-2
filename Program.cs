@@ -4,23 +4,49 @@ namespace pr2
 {
     class Program
     {
-        static void Main()
+        static int Main()
         {
+            int x = -1;
             Worker f = new Worker();
             Company g = new Company();
-            Worker[]succ = ReadWorkersArray();
-            PrintWorker(succ);
-            Console.WriteLine(succ[0].GetTotalMoney());
             float v, m;
-            GetWorkerInfo(succ, out v, out m);
-            Console.Write("MaxSalary" + v + "MinSalary" + m + ".\n");
-            succ = SortWorkerBySalary(succ);
-            Console.Clear(); Console.Write("SortWorkerBySalary \n"); PrintWorker(succ);
-            succ = SortWorkerByWorkExperiense(succ);
-            Console.Clear(); Console.Write("SortWorkerByWorkExperiense \n"); PrintWorker(succ);
+            Worker[] succ = ReadWorkersArray();
+            while (true)
+            {
+                
+                Console.WriteLine("\nClick to continue>> "); Console.ReadKey();
+                Console.Clear(); Menu();
+                Console.WriteLine("\nChoose an option >> "); x = int.Parse(Console.ReadLine());
+                switch (x)
+                {
+                    case 1: Console.Clear(); Console.WriteLine("succ.[0]GetWorkExperience() = " + succ[0].GetWorkExperience()); break;
+                    case 2: Console.Clear(); Console.WriteLine("succ.[0]GetTotalMoney() = " + succ[0].GetTotalMoney()); break;
+                    case 3: Console.Clear(); Console.WriteLine("ReadWorkersArray() -  "); succ = ReadWorkersArray(); break;
+                    case 4: Console.Clear(); Console.WriteLine("PrintWorker() = "); PrintWorker(succ[0]); break;
+                    case 5: Console.Clear(); Console.WriteLine("PrintWorkers() = "); PrintWorker(succ); break;
+                    case 6: Console.Clear(); Console.WriteLine("GetWorkerInfo(succ, out v, out m)  -- "); GetWorkerInfo(succ, out v, out m); Console.Write(" MaxSalary = " + v + " MinSalary = " + m + ".\n"); break;
+                    case 7: Console.Clear(); Console.WriteLine("succ = SortWorkerBySalary(succ) -- "); succ = SortWorkerBySalary(succ); break;
+                    case 8: Console.Clear(); Console.WriteLine("succ = SortWorkerByWorkExperiense(succ) -- "); succ = SortWorkerByWorkExperiense(succ); break;
+                    case 0: Console.Clear(); Console.WriteLine("Exit completed successfully"); return 0;
+                    default: Console.Clear(); Console.WriteLine("Erorr 404, Pls try again"); return 0;
+                }
+            }
+           
 
         }
-        //static Worker
+        static void Menu() 
+        {
+            Console.Write("\n-----------------------------Menu-----------------------------");
+            Console.Write("\n--------------------[1].GetWorkExperience()-------------------");
+            Console.Write("\n--------------------[2].GetTotalMoney()-----------------------");
+            Console.Write("\n--------------------[3].ReadWorkersArray()--------------------");
+            Console.Write("\n--------------------[4].PrintWorker()-------------------------");
+            Console.Write("\n--------------------[5].PrintWorkers()------------------------");
+            Console.Write("\n--------------------[6].GetWorkersInfo()----------------------");
+            Console.Write("\n--------------------[7].SortWorkerBySalary()------------------");
+            Console.Write("\n--------------------[8].SortWorkerByWorkExperience()----------");
+            Console.Write("\n\n--------------------[0].Exit----------------------------------");
+        }
         static Worker[] SortWorkerByWorkExperiense(Worker[] o)
         {
             for (int j = 0; j < o.Length; j++)
@@ -136,7 +162,7 @@ namespace pr2
         }
         public void SetPosition()
         {
-            //Console.Write("\nSetPosition\n");
+            Console.Write("\nSetPosition\n");
             Position = Console.ReadLine().ToString();
         }
         public void SetSalary()
@@ -156,7 +182,7 @@ namespace pr2
         }
         public int GetSalary()
         {
-            Console.Write("\nGetSalary\n");
+            //Console.Write("\nGetSalary\n");
             return Salary;
         }
 
